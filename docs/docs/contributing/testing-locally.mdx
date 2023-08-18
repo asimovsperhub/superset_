@@ -119,7 +119,7 @@ npm run cypress-run-chrome -- --spec cypress/e2e/dashboard/index.test.js --confi
 # to open the cypress ui
 npm run cypress-debug
 
-# to point cypress to a url other than the default (http://localhost:8088) set the environment variable before running the script
+# to point cypress to a url other than the default (http://localhost:8099) set the environment variable before running the script
 # e.g., CYPRESS_BASE_URL="http://localhost:9000"
 CYPRESS_BASE_URL=<your url> npm run cypress open
 ```
@@ -138,7 +138,7 @@ Launch environment:
 
 `CYPRESS_CONFIG=true docker-compose up`
 
-It will serve backend and frontend on port 8088.
+It will serve backend and frontend on port 8099.
 
 Run Cypress tests:
 
@@ -164,7 +164,7 @@ superset:
 +   cap_add:
 +     - SYS_PTRACE
     ports:
-      - 8088:8088
+      - 8099:8099
 +     - 5678:5678
     user: "root"
     depends_on: *superset-depends-on
@@ -204,8 +204,8 @@ ps -ef
 
 UID        PID  PPID  C STIME TTY          TIME CMD
 root         1     0  0 14:09 ?        00:00:00 bash /app/docker/docker-bootstrap.sh app
-root         6     1  4 14:09 ?        00:00:04 /usr/local/bin/python /usr/bin/flask run -p 8088 --with-threads --reload --debugger --host=0.0.0.0
-root        10     6  7 14:09 ?        00:00:07 /usr/local/bin/python /usr/bin/flask run -p 8088 --with-threads --reload --debugger --host=0.0.0.0
+root         6     1  4 14:09 ?        00:00:04 /usr/local/bin/python /usr/bin/flask run -p 8099 --with-threads --reload --debugger --host=0.0.0.0
+root        10     6  7 14:09 ?        00:00:07 /usr/local/bin/python /usr/bin/flask run -p 8099 --with-threads --reload --debugger --host=0.0.0.0
 ```
 
 Inject debugpy into the running Flask process. In this case PID 6.
@@ -222,7 +222,7 @@ netstat -tunap
 Active Internet connections (servers and established)
 Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
 tcp        0      0 0.0.0.0:5678            0.0.0.0:*               LISTEN      462/python
-tcp        0      0 0.0.0.0:8088            0.0.0.0:*               LISTEN      6/python
+tcp        0      0 0.0.0.0:8099            0.0.0.0:*               LISTEN      6/python
 ```
 
 You are now ready to attach a debugger to the process. Using VSCode you can configure a launch configuration file .vscode/launch.json like so.

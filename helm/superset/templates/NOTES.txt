@@ -32,6 +32,6 @@
   export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ template "superset.fullname" . }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
   echo http://$SERVICE_IP:{{ .Values.service.port }}
 {{- else if contains "ClusterIP" .Values.service.type }}
-  echo "Visit http://127.0.0.1:8088 to use your application"
-  kubectl port-forward service/superset 8088:8088 --namespace {{ .Release.Namespace }}
+  echo "Visit http://127.0.0.1:8099 to use your application"
+  kubectl port-forward service/superset 8099:8099 --namespace {{ .Release.Namespace }}
 {{- end }}

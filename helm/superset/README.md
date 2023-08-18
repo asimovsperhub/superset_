@@ -113,7 +113,7 @@ helm install my-superset superset/superset
 | service.annotations | object | `{}` |  |
 | service.loadBalancerIP | string | `nil` |  |
 | service.nodePort.http | int | `"nil"` |  |
-| service.port | int | `8088` |  |
+| service.port | int | `8099` |  |
 | service.type | string | `"ClusterIP"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `false` | Create custom service account for Superset. If create: true and serviceAccountName is not provided, `superset.fullname` will be used. |
