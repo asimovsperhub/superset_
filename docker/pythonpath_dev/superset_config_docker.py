@@ -1,3 +1,10 @@
+"""
+pythonpath_dev目录会被添加到容器的python path中
+附加superset_config.py中没有的配置 superset_config.py 会import superset_config_docker
+superset/config.py 会加载 python path 中的 superset_config （覆盖）
+"""
+
+
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
