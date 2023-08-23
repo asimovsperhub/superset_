@@ -22,12 +22,17 @@
 #
 import logging
 import os
-from typing import Optional
+from typing import Optional, Any
 
 from cachelib.file import FileSystemCache
 from celery.schedules import crontab
 
 logger = logging.getLogger()
+SUPERSET_LOG_VIEW = True
+if "SUPERSET_HOME" in os.environ:
+    DATA_DIR = os.environ["SUPERSET_HOME"]
+else:
+    DATA_DIR = os.path.expanduser("~/.superset")
 
 
 def get_env_variable(var_name: str, default: Optional[str] = None) -> str:
@@ -120,3 +125,52 @@ try:
     )
 except ImportError:
     logger.info("Using default Docker config...")
+
+
+
+# Allowed format types for upload on Database view
+EXCEL_EXTENSIONS = {"xlsx", "xls"}
+CSV_EXTENSIONS = {"csv", "tsv", "txt"}
+COLUMNAR_EXTENSIONS = {"parquet", "zip"}
+ALLOWED_EXTENSIONS = {*EXCEL_EXTENSIONS, *CSV_EXTENSIONS, *COLUMNAR_EXTENSIONS}
+
+# Optional maximum file size in bytes when uploading a CSV
+CSV_UPLOAD_MAX_SIZE = None
+
+# CSV Options: key/value pairs that will be passed as argument to DataFrame.to_csv
+# method.
+# note: index option should not be overridden
+CSV_EXPORT = {"encoding": "utf-8"}
+
+# Excel Options: key/value pairs that will be passed as argument to DataFrame.to_excel
+# method.
+# note: index option should not be overridden
+EXCEL_EXPORT: dict[str, Any] = {}
+
+# Specify the App icon
+APP_ICON = "/static/assets/images/superset-logo-horiz.png"
+
+
+BABEL_DEFAULT_LOCALE = "zh"
+
+from superset.utils.logging_configurator import DefaultLoggingConfigurator
+
+# Default configurator will consume the LOG_* settings below
+LOGGING_CONFIGURATOR = DefaultLoggingConfigurator()
+
+# Console Log Settings
+
+LOG_FORMAT = "%(asctime)s:%(levelname)s:%(name)s:%(message)s"
+LOG_LEVEL = "DEBUG"
+
+# ---------------------------------------------------
+# Enable Time Rotate Log Handler
+# ---------------------------------------------------
+# LOG_LEVEL = DEBUG, INFO, WARNING, ERROR, CRITICAL
+
+ENABLE_TIME_ROTATE = False
+TIME_ROTATE_LOG_LEVEL = "DEBUG"
+FILENAME = os.path.join(DATA_DIR, "superset.log")
+ROLLOVER = "midnight"
+INTERVAL = 1
+BACKUP_COUNT = 30
