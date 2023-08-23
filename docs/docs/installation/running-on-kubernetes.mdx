@@ -74,7 +74,7 @@ The chart will publish appropriate services to expose the Superset UI internally
 
 - Configure the Service as a `LoadBalancer` or `NodePort`
 - Set up an `Ingress` for it - the chart includes a definition, but will need to be tuned to your needs (hostname, tls, annotations etc...)
-- Run `kubectl port-forward superset-xxxx-yyyy :8099` to directly tunnel one pod's port into your localhost
+- Run `kubectl port-forward superset-xxxx-yyyy :8088` to directly tunnel one pod's port into your localhost
 
 Depending how you configured external access, the URL will vary. Once you've identified the appropriate URL you can log in with:
 

@@ -345,8 +345,7 @@ PUBLIC_ROLE_LIKE: str | None = None
 # Babel config for translations
 # ---------------------------------------------------
 # Setup default language
-# en
-BABEL_DEFAULT_LOCALE = "zh"
+BABEL_DEFAULT_LOCALE = "en"
 # Your application default translation path
 BABEL_DEFAULT_FOLDER = "superset/translations"
 # The allowed translation for you app
@@ -368,7 +367,7 @@ LANGUAGES = {
 }
 # Turning off i18n by default as translation in most languages are
 # incomplete and not well maintained.
-# LANGUAGES = {}
+LANGUAGES = {}
 
 
 # Override the default d3 locale format

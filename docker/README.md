@@ -58,7 +58,7 @@ The database will initialize itself upon startup via the init container ([`super
 
 To run the container, simply run: `docker-compose up`
 
-After waiting several minutes for Superset initialization to finish, you can open a browser and view [`http://localhost:8099`](http://localhost:8099)
+After waiting several minutes for Superset initialization to finish, you can open a browser and view [`http://localhost:8088`](http://localhost:8088)
 to start your journey.
 
 ## Developing
