@@ -52,7 +52,7 @@ echo "---------------------------------------------------"
 echo "After docker build and run, you should be able to access localhost:5001 on your browser"
 echo "login using admin/admin"
 echo "---------------------------------------------------"
-if ! docker run -p 5001:8099 apache-superset:${SUPERSET_VERSION_RC}; then
+if ! docker run -p 5001:8088 apache-superset:${SUPERSET_VERSION_RC}; then
   echo "---------------------------------------------------"
   echo "[ERROR] Seems like this apache-superset:${SUPERSET_VERSION_RC} has a setup/startup problem!"
   echo "---------------------------------------------------"

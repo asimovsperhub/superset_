@@ -47,6 +47,7 @@ services:
       - "127.0.0.1:5432:5432"
     volumes:
       - db_home:/var/lib/postgresql/data
+      - ./docker/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
 
   superset:
     env_file: docker/.env
@@ -55,7 +56,7 @@ services:
     command: ["/app/docker/docker-bootstrap.sh", "app"]
     restart: unless-stopped
     ports:
-      - 8099:8099
+      - 8088:8088
     user: *superset-user
     depends_on: *superset-depends-on
     volumes: *superset-volumes

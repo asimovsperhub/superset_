@@ -453,7 +453,7 @@ superset load-examples
 # Start the Flask dev web server from inside your virtualenv.
 # Note that your page may not have CSS at this point.
 # See instructions below how to build the front-end assets.
-superset run -p 8099 --with-threads --reload --debugger --debug
+superset run -p 8088 --with-threads --reload --debugger --debug
 ```
 
 Or you can install via our Makefile
@@ -477,7 +477,7 @@ $ make pre-commit
 via `.flaskenv`, however if needed, it should be set to `superset.app:create_app()`**
 
 If you have made changes to the FAB-managed templates, which are not built the same way as the newer, React-powered front-end assets, you need to start the app without the `--with-threads` argument like so:
-`superset run -p 8099 --reload --debugger --debug`
+`superset run -p 8088 --reload --debugger --debug`
 
 #### Dependencies
 
@@ -518,7 +518,7 @@ def FLASK_APP_MUTATOR(app):
 Then make sure you run your WSGI server using the right worker type:
 
 ```bash
-gunicorn "superset.app:create_app()" -k "geventwebsocket.gunicorn.workers.GeventWebSocketWorker" -b 127.0.0.1:8099 --reload
+gunicorn "superset.app:create_app()" -k "geventwebsocket.gunicorn.workers.GeventWebSocketWorker" -b 127.0.0.1:8088 --reload
 ```
 
 You can log anything to the browser console, including objects:
@@ -608,14 +608,14 @@ export NODE_OPTIONS=--no-experimental-fetch
 
 #### Webpack dev server
 
-The dev server by default starts at `http://localhost:9000` and proxies the backend requests to `http://localhost:8099`.
+The dev server by default starts at `http://localhost:9000` and proxies the backend requests to `http://localhost:8088`.
 
 So a typical development workflow is the following:
 
-1. [run Superset locally](#flask-server) using Flask, on port `8099` — but don't access it directly,<br/>
+1. [run Superset locally](#flask-server) using Flask, on port `8088` — but don't access it directly,<br/>
    ```bash
    # Install Superset and dependencies, plus load your virtual environment first, as detailed above.
-   superset run -p 8099 --with-threads --reload --debugger --debug
+   superset run -p 8088 --with-threads --reload --debugger --debug
    ```
 2. in parallel, run the Webpack dev server locally on port `9000`,<br/>
    ```bash
@@ -888,7 +888,7 @@ npm run cypress-run-chrome -- --spec cypress/e2e/dashboard/index.test.js --confi
 # to open the cypress ui
 npm run cypress-debug
 
-# to point cypress to a url other than the default (http://localhost:8099) set the environment variable before running the script
+# to point cypress to a url other than the default (http://localhost:8088) set the environment variable before running the script
 # e.g., CYPRESS_BASE_URL="http://localhost:9000"
 CYPRESS_BASE_URL=<your url> npm run cypress open
 ```
@@ -907,7 +907,7 @@ Launch environment:
 
 `CYPRESS_CONFIG=true docker-compose up`
 
-It will serve backend and frontend on port 8099.
+It will serve backend and frontend on port 8088.
 
 Run Cypress tests:
 
@@ -938,7 +938,7 @@ For debugging locally using VSCode, you can configure a launch configuration fil
             },
             "args": [
                 "run",
-                "-p 8099",
+                "-p 8088",
                 "--with-threads",
                 "--reload",
                 "--debugger"
@@ -966,7 +966,7 @@ superset:
 +   cap_add:
 +     - SYS_PTRACE
     ports:
-      - 8099:8099
+      - 8088:8088
 +     - 5678:5678
     user: "root"
     depends_on: *superset-depends-on
@@ -1006,8 +1006,8 @@ ps -ef
 
 UID        PID  PPID  C STIME TTY          TIME CMD
 root         1     0  0 14:09 ?        00:00:00 bash /app/docker/docker-bootstrap.sh app
-root         6     1  4 14:09 ?        00:00:04 /usr/local/bin/python /usr/bin/flask run -p 8099 --with-threads --reload --debugger --host=0.0.0.0
-root        10     6  7 14:09 ?        00:00:07 /usr/local/bin/python /usr/bin/flask run -p 8099 --with-threads --reload --debugger --host=0.0.0.0
+root         6     1  4 14:09 ?        00:00:04 /usr/local/bin/python /usr/bin/flask run -p 8088 --with-threads --reload --debugger --host=0.0.0.0
+root        10     6  7 14:09 ?        00:00:07 /usr/local/bin/python /usr/bin/flask run -p 8088 --with-threads --reload --debugger --host=0.0.0.0
 ```
 
 Inject debugpy into the running Flask process. In this case PID 6.
@@ -1024,7 +1024,7 @@ netstat -tunap
 Active Internet connections (servers and established)
 Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
 tcp        0      0 0.0.0.0:5678            0.0.0.0:*               LISTEN      462/python
-tcp        0      0 0.0.0.0:8099            0.0.0.0:*               LISTEN      6/python
+tcp        0      0 0.0.0.0:8088            0.0.0.0:*               LISTEN      6/python
 ```
 
 You are now ready to attach a debugger to the process. Using VSCode you can configure a launch configuration file .vscode/launch.json like so.
